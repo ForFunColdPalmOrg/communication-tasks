@@ -1,4 +1,4 @@
-package com.dk.service.adaptors.http.exception;
+package com.dk.tasks.adaptors.http.exception;
 
 import com.hj.oneserviceapp.service.exception.ErrorType;
 import com.hj.oneserviceapp.service.exception.InternalSystemException;

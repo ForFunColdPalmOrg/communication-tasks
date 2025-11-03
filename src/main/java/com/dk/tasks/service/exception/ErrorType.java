@@ -1,4 +1,4 @@
-package com.dk.service.service.exception;
+package com.dk.tasks.service.exception;
 
 public enum ErrorType {
     INTERNAL,

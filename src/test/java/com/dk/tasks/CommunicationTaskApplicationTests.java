@@ -1,10 +1,10 @@
-package com.dk.service;
+package com.dk.tasks;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ServiceApplicationTests {
+class CommunicationTaskApplicationTests {
 
 	@Test
 	void contextLoads() {

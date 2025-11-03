@@ -1,11 +1,10 @@
-package com.dk.service.config;
+package com.dk.tasks.config;
 
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -24,7 +23,6 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers(HttpMethod.POST, "/ui/v1/user/register").permitAll()
                     .anyRequest().authenticated()
             )
             .httpBasic(Customizer.withDefaults());

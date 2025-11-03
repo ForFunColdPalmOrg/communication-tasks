@@ -1,4 +1,4 @@
-package com.dk.service.adaptors.http.exception;
+package com.dk.tasks.adaptors.http.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
