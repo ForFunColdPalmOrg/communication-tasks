@@ -13,6 +13,8 @@ import java.util.List;
 @Builder
 public class CreateTaskRequest {
     @NotEmpty
+    String requestId;
+    @NotEmpty
     String createdBy;
     String assignTo;
     @NotNull(message = "Deadline is mandatory")
