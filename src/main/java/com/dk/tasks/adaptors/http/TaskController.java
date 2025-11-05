@@ -7,13 +7,9 @@ import com.dk.tasks.adaptors.http.response.TaskResponse;
 import com.dk.tasks.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,12 +23,21 @@ public class TaskController implements TaskControllerApi {
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createTasks(@Valid CreateTaskRequest request) {
-        taskService.createTasks(mapper.toDto(request));
+    public void create(@Valid CreateTaskRequest request) {
+        taskService.createTask(mapper.toDto(request));
     }
 
     @Override
-    public List<TaskResponse> showTasks(String user) {
-        return null;
+    @GetMapping("/manager/id")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TaskResponse> showForManager(@PathVariable Integer id) {
+        return mapper.toResponses(taskService.getTasksByCreatedBy(id));
+    }
+
+    @Override
+    @GetMapping("/employee/id")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TaskResponse> showForEmployee(Integer id) {
+        return mapper.toResponses(taskService.getTasksByAssignedTo(id));
     }
 }

@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum ErrorCode {
     GENERAL_ERROR,
-    INVALID_REQUEST;
+    INVALID_REQUEST,
+    TASK_DOUBLE("For client with tax_code %s, or phone %s, already exists task")
+    ;
 
     private final String defaultMessage;
 

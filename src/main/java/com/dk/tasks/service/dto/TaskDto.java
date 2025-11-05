@@ -1,5 +1,6 @@
 package com.dk.tasks.service.dto;
 
+import com.dk.tasks.service.dto.enums.TaskState;
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,10 +8,10 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class CreateTaskDto {
-    private String requestId;
+public class TaskDto {
     private Integer createdBy;
     private Integer assignTo;
+    private TaskState state;
     private LocalDateTime deadline;
     private String description;
     private String taxCode;

@@ -22,19 +22,30 @@ public class TaskEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "customer_id")
-    private CustomerEntity customerId;
     @Column(name = "deadline")
     private LocalDateTime deadline;
     @Column(name = "created_by")
-    private Integer createdBy;
+    private Integer createdBy; //todo to Entity
     @Column(name = "assigned_to")
-    private Integer assignedTo;
+    private Integer assignedTo; //todo to Entity
     @Column(name = "state")
     private TaskState state;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @Column(name = "description")
     private String description;
+    @Column(name = "tax_code")
+    private String taxCode;
+    @Column(name = "last_name")
+    private String lastName;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "middle_name")
+    private String middleName;
+    @Column(name = "phone")
+    private String phone;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "offer_id")
+    private Integer offerId; //todo to Entity
 }

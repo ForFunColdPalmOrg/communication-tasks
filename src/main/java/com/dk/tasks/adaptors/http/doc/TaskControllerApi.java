@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -41,10 +42,10 @@ public interface TaskControllerApi {
                             )
                     )
             })
-    void createTasks(@Valid CreateTaskRequest request);
+    void create(@Valid CreateTaskRequest request);
 
-    @Operation(summary = "Show tasks available for employee",
-            description = "Show all tasks that can be processed/assigned or already assigned to an employee",
+    @Operation(summary = "Show tasks created by a manager",
+            description = "Show all tasks that certain manager created",
             responses = {@ApiResponse(
                     responseCode = "200",
                     description = "OK",
@@ -67,5 +68,31 @@ public interface TaskControllerApi {
                                     schema = @Schema(implementation = ApiErrorResponse.class)
                             )
                     )})
-    List<TaskResponse> showTasks(String user);
+    List<TaskResponse> showForManager(@PathVariable Integer id);
+
+    @Operation(summary = "Show tasks available for employee",
+            description = "Show all tasks that assigned to an employee",
+            responses = {@ApiResponse(
+                    responseCode = "200",
+                    description = "OK",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = List.class)
+                    )
+            ),
+                    @ApiResponse(responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
+                            )
+                    ),
+                    @ApiResponse(responseCode = "500",
+                            description = "Internal server error",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
+                            )
+                    )})
+    List<TaskResponse> showForEmployee(@PathVariable Integer id);
 }
