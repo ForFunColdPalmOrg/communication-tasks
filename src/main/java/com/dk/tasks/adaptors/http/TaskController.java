@@ -28,16 +28,23 @@ public class TaskController implements TaskControllerApi {
     }
 
     @Override
-    @GetMapping("/manager/id")
+    @GetMapping("/manager/{id}")
     @ResponseStatus(HttpStatus.OK)
     public List<TaskResponse> showForManager(@PathVariable Integer id) {
         return mapper.toResponses(taskService.getTasksByCreatedBy(id));
     }
 
     @Override
-    @GetMapping("/employee/id")
+    @GetMapping("/employee/{id}")
     @ResponseStatus(HttpStatus.OK)
     public List<TaskResponse> showForEmployee(Integer id) {
         return mapper.toResponses(taskService.getTasksByAssignedTo(id));
+    }
+
+    @Override
+    @GetMapping("/team/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TaskResponse> showForTeam(Integer id) {
+        return mapper.toResponses(taskService.getTasksByTeam(id));
     }
 }

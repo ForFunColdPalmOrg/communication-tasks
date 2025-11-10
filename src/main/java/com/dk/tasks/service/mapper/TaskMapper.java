@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface TaskMapper {
 
-    TaskEntity createToEntity(CreateTaskDto dto, TaskState state);
+    TaskEntity createToEntity(CreateTaskDto dto, TaskState state, Integer teamId);
 
     TaskDto toDto(TaskEntity entity);
 

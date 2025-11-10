@@ -1,7 +1,5 @@
 package com.dk.tasks.persistence.entity;
 
-import com.dk.tasks.service.dto.enums.EmployeePosition;
-import com.dk.tasks.service.dto.enums.EmployeeTeam;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "employee")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,8 +19,8 @@ public class EmployeeEntity {
     private Integer id;
     @Column(name = "user_name")
     private String userName;
-    @Column(name = "team")
-    private EmployeeTeam team;
-    @Column(name = "position")
-    private EmployeePosition position;
+    @Column(name = "team", columnDefinition = "int2")
+    private Integer team;
+    @Column(name = "position", columnDefinition = "int2")
+    private Integer position;
 }

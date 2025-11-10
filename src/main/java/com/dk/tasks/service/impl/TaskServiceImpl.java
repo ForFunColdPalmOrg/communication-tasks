@@ -9,32 +9,29 @@ import com.dk.tasks.service.dto.TaskDto;
 import com.dk.tasks.service.dto.enums.TaskState;
 import com.dk.tasks.service.exception.DoubleException;
 import com.dk.tasks.service.exception.ErrorCode;
-import com.dk.tasks.service.exception.InternalSystemException;
 import com.dk.tasks.service.mapper.TaskMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class TaskServiceImpl implements TaskService {
-    private static EmployeeService employeeService;
-    private static TaskRepo repository;
-    private static TaskMapper mapper;
+    private final EmployeeService employeeService;
+    private final TaskRepo repository;
+    private final TaskMapper mapper;
 
     @Override
     @Transactional
     public void createTask(CreateTaskDto dto) {
         log.info("Received new create tasks requestId {}", dto.getRequestId());
-        checkEmployee(dto);
+        int teamId = checkEmployeesAndGetTeam(dto);
         if (repository.findByTaxCodeOrPhone(dto.getTaxCode(), dto.getPhone()).isEmpty()) {
-            repository.save(mapper.createToEntity(dto, TaskState.NEW));
+            repository.save(mapper.createToEntity(dto, TaskState.NEW, teamId)); // todo add offer check
         } else {
             log.error(String.format("For client with tax_code %s, or phone %s, already exists task, requestId %s", dto.getTaxCode(), dto.getPhone(), dto.getRequestId()));
             throw new DoubleException(ErrorCode.TASK_DOUBLE, dto.getTaxCode(), dto.getPhone());
@@ -42,13 +39,18 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDto> getTasksByAssignedTo(Integer assignedTo) {
+    public List<TaskDto> getTasksByAssignedTo(Integer assignedTo) { // todo add offer detail
         return mapper.toDtos(repository.findAllTasksByAssignedTo(assignedTo));
     }
 
     @Override
-    public List<TaskDto> getTasksByCreatedBy(Integer createdBy) {
+    public List<TaskDto> getTasksByCreatedBy(Integer createdBy) { // todo add offer detail
         return mapper.toDtos(repository.findAllTasksByCreatedBy(createdBy));
+    }
+
+    @Override
+    public List<TaskDto> getTasksByTeam(Integer teamId) {
+        return mapper.toDtos(repository.findAllTasksByTeamId(teamId)); // todo add offer detail
     }
 
     @Override
@@ -61,12 +63,10 @@ public class TaskServiceImpl implements TaskService {
         // todo for later, need to analyze
     }
 
-    private void checkEmployee(CreateTaskDto dto) {
-        List<Integer> employeesToCheck = new ArrayList<>();
-        employeesToCheck.add(dto.getCreatedBy());
+    private Integer checkEmployeesAndGetTeam(CreateTaskDto dto) {
         if (null != dto.getAssignTo()) {
-            employeesToCheck.add(dto.getAssignTo());
+            employeeService.getEmployeeById(dto.getAssignTo());
         }
-        employeesToCheck.forEach(employeeService::getEmployeeById);
+        return employeeService.getEmployeeById(dto.getCreatedBy()).getTeamId();
     }
 }

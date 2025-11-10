@@ -26,12 +26,14 @@ public class TaskEntity {
     private LocalDateTime deadline;
     @Column(name = "created_by")
     private Integer createdBy; //todo to Entity
+    @Column(name = "team_id")
+    private Integer teamId; //todo to Entity
     @Column(name = "assigned_to")
     private Integer assignedTo; //todo to Entity
     @Column(name = "state")
     private TaskState state;
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     @Column(name = "description")
     private String description;
     @Column(name = "tax_code")

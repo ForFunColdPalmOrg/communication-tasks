@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class TaskDto {
+    private Integer teamId;
     private Integer createdBy;
     private Integer assignTo;
     private TaskState state;
