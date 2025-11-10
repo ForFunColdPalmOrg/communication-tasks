@@ -14,6 +14,8 @@ public interface TaskService {
 
     List<TaskDto> getTasksByCreatedBy(Integer createdBy);
 
+    List<TaskDto> getTasksByTeam(Integer team);
+
     void requestTaskToReAssign(ReassignTaskDto dto);
 
     void acceptReassignRequest(ReassignTaskDto dto);

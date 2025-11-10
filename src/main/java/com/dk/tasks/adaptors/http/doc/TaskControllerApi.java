@@ -95,4 +95,30 @@ public interface TaskControllerApi {
                             )
                     )})
     List<TaskResponse> showForEmployee(@PathVariable Integer id);
+
+    @Operation(summary = "Show tasks available for team",
+            description = "Show all tasks that assigned to an team",
+            responses = {@ApiResponse(
+                    responseCode = "200",
+                    description = "OK",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = List.class)
+                    )
+            ),
+                    @ApiResponse(responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
+                            )
+                    ),
+                    @ApiResponse(responseCode = "500",
+                            description = "Internal server error",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ApiErrorResponse.class)
+                            )
+                    )})
+    List<TaskResponse> showForTeam(@PathVariable Integer id);
 }

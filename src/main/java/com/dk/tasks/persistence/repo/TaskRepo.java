@@ -17,4 +17,7 @@ public interface TaskRepo extends JpaRepository<TaskEntity, Long> {
 
     @Query("SELECT t FROM TaskEntity t WHERE t.createdBy = :createdBy")
     List<TaskEntity> findAllTasksByCreatedBy(Integer createdBy);
+
+    @Query("SELECT t FROM TaskEntity t WHERE t.teamId = :teamId")
+    List<TaskEntity> findAllTasksByTeamId(Integer teamId);
 }

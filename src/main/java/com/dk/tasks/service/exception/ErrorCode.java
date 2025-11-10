@@ -9,6 +9,7 @@ public enum ErrorCode {
     GENERAL_ERROR,
     INVALID_REQUEST,
     INVALID_INPUT,
+    NOT_FOUND_EMPLOYEE("Employee with id %s was not found"),
     TASK_DOUBLE("For client with tax_code %s, or phone %s, already exists task")
     ;
 

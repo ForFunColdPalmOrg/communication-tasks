@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Value
 @Builder
 public class TaskResponse {
+    Integer teamId;
     Integer createdBy;
     Integer assignTo;
     TaskState state;
