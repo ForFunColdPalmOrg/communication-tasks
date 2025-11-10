@@ -3,9 +3,9 @@ version: "3.8"
 services:
   db:
     image: postgres:15
-    container_name: template_service
+    container_name: communication_task
     environment:
-      POSTGRES_DB: template_service_db
+      POSTGRES_DB: communication_task_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret
     volumes:

@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 public class CreateTaskRequest {
     @NotEmpty
     String requestId;
-    @NotEmpty
+    @NotNull
     Integer createdBy;
     Integer assignTo;
-    @NotNull(message = "Deadline is mandatory")
+    @NotNull
     LocalDateTime deadline;
     String description;
     String taxCode;

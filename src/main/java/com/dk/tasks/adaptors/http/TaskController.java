@@ -17,13 +17,13 @@ import java.util.List;
 @RequestMapping(value = "/u1/v1/task", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class TaskController implements TaskControllerApi {
-    private static TaskService taskService;
-    private static TaskMapperHttp mapper;
+    private final TaskService taskService;
+    private final TaskMapperHttp mapper;
 
     @Override
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@Valid CreateTaskRequest request) {
+    public void create(@Valid @RequestBody CreateTaskRequest request) {
         taskService.createTask(mapper.toDto(request));
     }
 
