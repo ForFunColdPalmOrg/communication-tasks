@@ -11,11 +11,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install GitHub CLI
-        uses: cli/cli@v2
-
       - name: Authenticate GH CLI
         run: echo "${{ secrets.GH_PAT }}" | gh auth login --with-token
 
       - name: Approve PR
         run: gh pr review ${{ github.event.pull_request.number }} --approve
+
