@@ -12,8 +12,21 @@ create table if not exists position (
 create table if not exists employee (
     id integer generated always as identity not null primary key,
     user_name varchar(8) not null,
+    last_name varchar(50),
+    name varchar(50),
+    middle_name varchar(50),
+    email varchar(100),
     team smallint not null constraint employee_team_fkey references team,
     position smallint not null constraint employee_position_fkey references position
+);
+
+create table if not exists offer (
+    id integer generated always as identity not null primary key,
+    name varchar(100) not null,
+    type smallint not null,
+    description varchar(255),
+    sum integer,
+    state smallint not null
 );
 
 create table if not exists task (
@@ -31,5 +44,5 @@ create table if not exists task (
     middle_name varchar(50),
     phone varchar(10),
     email varchar(100),
-    offer_id integer
+    offer_id integer constraint task_offer_fkey references offer
 );
